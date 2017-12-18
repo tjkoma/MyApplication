@@ -48,7 +48,7 @@ public class VideoFragment extends Fragment {
         map.put("pn","1");
         map.put("rn","30");
         map.put("albums",1);
-        HttpUtils.getData(url, map, new CallBackDataService() {
+        HttpUtils.postData(url, map, new CallBackDataService() {
             @Override
             public void Successed(final Object object) {
                 if (getActivity() == null) return;

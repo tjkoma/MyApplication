@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MyApplication.iml" filepath="$PROJECT_DIR$/MyApplication.iml" />
+      <module fileurl="file://D:\Android_WorkSpace\WaveProgressBar\MyApplication.iml" filepath="D:\Android_WorkSpace\WaveProgressBar\MyApplication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WaveProgressBar.iml" filepath="$PROJECT_DIR$/WaveProgressBar.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\Android_WorkSpace\WaveProgressBar\app\app.iml" filepath="D:\Android_WorkSpace\WaveProgressBar\app\app.iml" />
     </modules>
   </component>
 </project>
