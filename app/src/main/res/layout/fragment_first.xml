@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.jshc.myapplication.views.MyProgressBar
+    <com.jshc.waveprogressbar.views.MyProgressBar
         android:id="@+id/myProgressBar"
         android:layout_width="150dp"
         android:layout_height="150dp"
