@@ -1,4 +1,4 @@
-package com.jshc.myapplication.activitys;
+package com.jshc.waveprogressbar.activitys;
 
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -8,11 +8,11 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jshc.myapplication.R;
-import com.jshc.myapplication.fragments.FirstFragment;
-import com.jshc.myapplication.fragments.FourthFragment;
-import com.jshc.myapplication.fragments.SecondFragment;
-import com.jshc.myapplication.fragments.ThirdFragment;
+import com.jshc.waveprogressbar.R;
+import com.jshc.waveprogressbar.fragments.FirstFragment;
+import com.jshc.waveprogressbar.fragments.FourthFragment;
+import com.jshc.waveprogressbar.fragments.SecondFragment;
+import com.jshc.waveprogressbar.fragments.ThirdFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

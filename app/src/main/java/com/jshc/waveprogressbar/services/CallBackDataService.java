@@ -1,4 +1,4 @@
-package com.jshc.myapplication.services;
+package com.jshc.waveprogressbar.services;
 
 /**
  * Created by JinT on 2017/12/18 0018.

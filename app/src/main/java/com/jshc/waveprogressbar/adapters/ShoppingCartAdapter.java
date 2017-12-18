@@ -1,4 +1,4 @@
-package com.jshc.myapplication.adapters;
+package com.jshc.waveprogressbar.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.jshc.myapplication.R;
-import com.jshc.myapplication.beans.GoodBean;
+import com.jshc.waveprogressbar.R;
+import com.jshc.waveprogressbar.beans.GoodBean;
 
 import java.util.List;
 

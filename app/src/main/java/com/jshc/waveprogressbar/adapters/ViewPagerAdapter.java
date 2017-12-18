@@ -1,4 +1,4 @@
-package com.jshc.myapplication.adapters;
+package com.jshc.waveprogressbar.adapters;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

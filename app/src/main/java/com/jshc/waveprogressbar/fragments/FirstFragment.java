@@ -1,4 +1,4 @@
-package com.jshc.myapplication.fragments;
+package com.jshc.waveprogressbar.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jshc.myapplication.R;
-import com.jshc.myapplication.views.MyProgressBar;
+import com.jshc.waveprogressbar.R;
+import com.jshc.waveprogressbar.views.MyProgressBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

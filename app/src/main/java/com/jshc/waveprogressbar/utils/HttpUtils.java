@@ -1,6 +1,6 @@
-package com.jshc.myapplication.utils;
+package com.jshc.waveprogressbar.utils;
 
-import com.jshc.myapplication.services.CallBackDataService;
+import com.jshc.waveprogressbar.services.CallBackDataService;
 
 import java.io.IOException;
 import java.util.Iterator;

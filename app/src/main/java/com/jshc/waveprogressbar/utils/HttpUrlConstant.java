@@ -1,4 +1,4 @@
-package com.jshc.myapplication.utils;
+package com.jshc.waveprogressbar.utils;
 
 /**
  * 请求地址常量

@@ -1,4 +1,4 @@
-package com.jshc.myapplication.beans;
+package com.jshc.waveprogressbar.beans;
 
 /**
  * Created by JinT on 2017/12/15 0015.

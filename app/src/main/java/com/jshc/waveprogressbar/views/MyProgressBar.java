@@ -1,4 +1,4 @@
-package com.jshc.myapplication.views;
+package com.jshc.waveprogressbar.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.jshc.myapplication.R;
+import com.jshc.waveprogressbar.R;
 
 /**
  * Created by JinT on 2017/12/11 0011.
