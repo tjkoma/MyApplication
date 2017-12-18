@@ -4,15 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/video_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/video_textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="视频" />
-    </ScrollView>
+        android:layout_height="match_parent" />
 
 </LinearLayout>
