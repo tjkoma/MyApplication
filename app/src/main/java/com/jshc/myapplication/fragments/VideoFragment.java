@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jshc.myapplication.R;
 import com.jshc.myapplication.services.CallBackDataService;
+import com.jshc.myapplication.utils.HttpUrlConstant;
 import com.jshc.myapplication.utils.HttpUtils;
 
 import java.util.HashMap;
@@ -29,8 +30,6 @@ public class VideoFragment extends Fragment {
     TextView videoTextView;
     Unbinder unbinder;
 
-    private static final String url = "http://apis.juhe.cn/cook/query.php";
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,7 +47,7 @@ public class VideoFragment extends Fragment {
         map.put("pn","1");
         map.put("rn","30");
         map.put("albums",1);
-        HttpUtils.postData(url, map, new CallBackDataService() {
+        HttpUtils.postData(HttpUrlConstant.COOK, map, new CallBackDataService() {
             @Override
             public void Successed(final Object object) {
                 if (getActivity() == null) return;
