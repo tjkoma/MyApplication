@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -33,6 +35,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_DRAGGING;
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_SETTLING;
+
 
 /**
  * Created by JinT on 2017/12/15 0015.
@@ -46,10 +52,15 @@ public class ThirdFragment extends Fragment {
     Unbinder unbinder;
     @BindView(R.id.base_title_textView)
     TextView baseTitleTextView;
+    @BindView(R.id.progress)
+    ProgressBar progress;
+    @BindView(R.id.loading_LinearLayout)
+    LinearLayout loadingLinearLayout;
 
     private ShoppingCartAdapter shoppingCartAdapter;
     private List<GoodBean> goodList;
     private ApiService apiService;
+    private int PageNo = 10;
 
     @Nullable
     @Override
@@ -63,7 +74,7 @@ public class ThirdFragment extends Fragment {
     private void initView() {
         baseTitleTextView.setText("购物车");
         goodList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < PageNo; i++) {
             GoodBean bean = new GoodBean();
             bean.setGoodName("衣服" + (i + 1));
             goodList.add(bean);
@@ -72,6 +83,27 @@ public class ThirdFragment extends Fragment {
         thirdRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         thirdRecyclerView.setAdapter(shoppingCartAdapter);
 //        getCookData();
+
+        thirdRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                switch (newState) {
+                    case SCROLL_STATE_IDLE:
+                        if (isVisBottom(thirdRecyclerView)) {
+                            loadingLinearLayout.setVisibility(View.VISIBLE);
+                            PageNo = PageNo + 10;
+                        }
+                        break;
+                    case SCROLL_STATE_DRAGGING:
+
+                        break;
+                    case SCROLL_STATE_SETTLING:
+
+                        break;
+                }
+            }
+        });
     }
 
     private void getCookData() {
@@ -83,7 +115,7 @@ public class ThirdFragment extends Fragment {
         map.put("rn", "30");
         map.put("albums", 1);
         apiService = RetrofitUtils.getInstance().create(ApiService.class);
-        Observable<CookBean> call =  apiService.getCookData(map);
+        Observable<CookBean> call = apiService.getCookData(map);
         call.subscribeOn(Schedulers.newThread())
                 .observeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -95,7 +127,7 @@ public class ThirdFragment extends Fragment {
 
                     @Override
                     public void onNext(CookBean value) {
-                        Log.e("TAG",new Gson().toJson(value));
+                        Log.e("TAG", new Gson().toJson(value));
                     }
 
                     @Override
@@ -108,6 +140,29 @@ public class ThirdFragment extends Fragment {
 
                     }
                 });
+    }
+
+    /**
+     * 判断recyclerview是否滑动到底部
+     *
+     * @param recyclerView
+     * @return
+     */
+    public static boolean isVisBottom(RecyclerView recyclerView) {
+        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        //屏幕中最后一个可见子项的position
+        int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+        //当前屏幕所看到的子项个数
+        int visibleItemCount = layoutManager.getChildCount();
+        //当前RecyclerView的所有子项个数
+        int totalItemCount = layoutManager.getItemCount();
+        //RecyclerView的滑动状态
+        int state = recyclerView.getScrollState();
+        if (visibleItemCount > 0 && lastVisibleItemPosition == totalItemCount - 1 && state == SCROLL_STATE_IDLE) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
