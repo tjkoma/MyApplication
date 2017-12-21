@@ -1,5 +1,6 @@
 package com.jshc.waveprogressbar.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jshc.waveprogressbar.R;
+import com.jshc.waveprogressbar.activitys.MyMapActivity;
 import com.jshc.waveprogressbar.adapters.MineAdapter;
 
 import java.util.ArrayList;
@@ -21,10 +23,11 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
+ * 我的界面
  * Created by JinT on 2017/12/15 0015.
  */
 
-public class FourthFragment extends Fragment {
+public class FourthFragment extends Fragment implements MineAdapter.OnMineItemClickListener {
     @BindView(R.id.mine_RecyclerView)
     RecyclerView mineRecyclerView;
     Unbinder unbinder;
@@ -47,16 +50,33 @@ public class FourthFragment extends Fragment {
         mineCollapsingToolbarLayout.setTitle("我的");
         mineList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
+            if (i == 3) {
+                mineList.add("我的运动");
+            }
             mineList.add(i + 1 + "");
         }
         mineAdapter = new MineAdapter(getActivity(), mineList);
         mineRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mineRecyclerView.setAdapter(mineAdapter);
+        mineAdapter.setOnMineItemClickListener(this);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    /**
+     * 条目点击事件
+     *
+     * @param index
+     */
+    @Override
+    public void onItemClick(int index) {
+        if (index == 3) {
+            Intent intent = new Intent(getActivity(), MyMapActivity.class);
+            startActivity(intent);
+        }
     }
 }
