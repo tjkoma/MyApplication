@@ -70,7 +70,7 @@ public class MyMapActivity extends AppCompatActivity {
         }
         initView();
         showBlueLacation();
-        showMarker();
+//        showMarker();
     }
 
     private void initView() {
