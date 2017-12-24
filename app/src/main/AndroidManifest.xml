@@ -35,7 +35,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activitys.MyMapActivity"></activity>
+        <activity
+            android:name=".activitys.MyMapActivity"
+            android:windowSoftInputMode="stateHidden|stateUnchanged"></activity>
 
         <!--Service-->
         <service android:name="com.amap.api.location.APSService"></service>
