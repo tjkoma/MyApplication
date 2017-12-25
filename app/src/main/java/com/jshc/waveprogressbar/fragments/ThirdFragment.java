@@ -59,6 +59,7 @@ public class ThirdFragment extends Fragment {
 
     private ShoppingCartAdapter shoppingCartAdapter;
     private List<GoodBean> goodList;
+    private List<String> bannerList;
     private ApiService apiService;
     private int PageNo = 10;
 
@@ -74,12 +75,18 @@ public class ThirdFragment extends Fragment {
     private void initView() {
         baseTitleTextView.setText("购物车");
         goodList = new ArrayList<>();
+        bannerList = new ArrayList<>();
+        bannerList.add("http://img2.niutuku.com/desk/1208/1924/ntk-1924-20355.jpg");
+        bannerList.add("http://www.wallcoo.com/1440x900/1440x900_CG_design_wallpapers/wallpapers/1440x900/Free_High_resolution_wallpaper_00402_peacewhenthedayisdone_1440x900.jpg");
+        bannerList.add("http://dl.bizhi.sogou.com/images/2012/01/27/31794.jpg");
+        bannerList.add("http://img2.niutuku.com/desk/1208/1450/ntk-1450-9891.jpg");
+        bannerList.add("http://img2.niutuku.com/desk/1208/1508/ntk-1508-32823.jpg");
         for (int i = 0; i < PageNo; i++) {
             GoodBean bean = new GoodBean();
             bean.setGoodName("衣服" + (i + 1));
             goodList.add(bean);
         }
-        shoppingCartAdapter = new ShoppingCartAdapter(getActivity(), goodList);
+        shoppingCartAdapter = new ShoppingCartAdapter(getActivity(), goodList,bannerList);
         thirdRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         thirdRecyclerView.setAdapter(shoppingCartAdapter);
 //        getCookData();
@@ -90,10 +97,10 @@ public class ThirdFragment extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
                 switch (newState) {
                     case SCROLL_STATE_IDLE:
-                        if (isVisBottom(thirdRecyclerView)) {
-                            loadingLinearLayout.setVisibility(View.VISIBLE);
-                            PageNo = PageNo + 10;
-                        }
+//                        if (isVisBottom(thirdRecyclerView)) {
+//                            loadingLinearLayout.setVisibility(View.VISIBLE);
+//                            PageNo = PageNo + 10;
+//                        }
                         break;
                     case SCROLL_STATE_DRAGGING:
 

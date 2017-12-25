@@ -1,6 +1,7 @@
 package com.jshc.waveprogressbar.adapters;
 
 import android.content.Context;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,6 +99,8 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public class BannerViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.shopping_Banner)
         Banner shoppingBanner;
+        @BindView(R.id.shopping_viewPager)
+        ViewPager shoppingViewPager;
 
         public BannerViewHolder(View bannerItemView) {
             super(bannerItemView);
