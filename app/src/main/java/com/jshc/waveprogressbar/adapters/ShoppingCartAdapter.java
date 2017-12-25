@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * 混合布局的RecyclerView
  * Created by JinT on 2017/12/15 0015.
  */
 
@@ -70,16 +71,38 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof CommenViewHolder) {
             Glide.with(context).load("http://img3.redocn.com/20130602/Redocn_2013052815464777.jpg").into(((CommenViewHolder) holder).goodImageImageView);
             ((CommenViewHolder) holder).goodNameTextView.setText(list.get(realPosition(position)).getGoodName());
         } else {
             ((BannerViewHolder) holder).shoppingBanner.setImages(bannerList).setImageLoader(new GlideImageLoader()).start();
-            CateViewPageAdapter cateViewPageAdapter = new CateViewPageAdapter(fragmentManager,context,fragmentList);
-//            cateViewPageAdapter.addFragment(new ViewPagerFirstFragment());
-//            cateViewPageAdapter.addFragment(new ViewPagerSecondFragment());
+            CateViewPageAdapter cateViewPageAdapter = new CateViewPageAdapter(fragmentManager, context, fragmentList);
             ((BannerViewHolder) holder).shoppingViewPager.setAdapter(cateViewPageAdapter);
+            //切换fragment的时候变换底部指示器的颜色
+            ((BannerViewHolder) holder).shoppingViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    if (position == 0) {
+                        ((BannerViewHolder) holder).firstView.setBackgroundResource(R.drawable.viewpager_selected_indicator);
+                        ((BannerViewHolder) holder).secondView.setBackgroundResource(R.drawable.viewpager_unselected_indicator);
+                    } else if (position == 1) {
+                        ((BannerViewHolder) holder).firstView.setBackgroundResource(R.drawable.viewpager_unselected_indicator);
+                        ((BannerViewHolder) holder).secondView.setBackgroundResource(R.drawable.viewpager_selected_indicator);
+                    }
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+
         }
     }
 
@@ -111,6 +134,10 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         Banner shoppingBanner;
         @BindView(R.id.shopping_viewPager)
         ViewPager shoppingViewPager;
+        @BindView(R.id.first_view)
+        View firstView;
+        @BindView(R.id.second_view)
+        View secondView;
 
         public BannerViewHolder(View bannerItemView) {
             super(bannerItemView);
