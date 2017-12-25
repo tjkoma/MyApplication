@@ -62,6 +62,7 @@ public class ThirdFragment extends Fragment {
     private List<String> bannerList;
     private ApiService apiService;
     private int PageNo = 10;
+    private List<Fragment> fragmentList;
 
     @Nullable
     @Override
@@ -76,17 +77,20 @@ public class ThirdFragment extends Fragment {
         baseTitleTextView.setText("购物车");
         goodList = new ArrayList<>();
         bannerList = new ArrayList<>();
+        fragmentList = new ArrayList<>();
         bannerList.add("http://img2.niutuku.com/desk/1208/1924/ntk-1924-20355.jpg");
         bannerList.add("http://www.wallcoo.com/1440x900/1440x900_CG_design_wallpapers/wallpapers/1440x900/Free_High_resolution_wallpaper_00402_peacewhenthedayisdone_1440x900.jpg");
         bannerList.add("http://dl.bizhi.sogou.com/images/2012/01/27/31794.jpg");
         bannerList.add("http://img2.niutuku.com/desk/1208/1450/ntk-1450-9891.jpg");
         bannerList.add("http://img2.niutuku.com/desk/1208/1508/ntk-1508-32823.jpg");
+        fragmentList.add(new ViewPagerFirstFragment());
+        fragmentList.add(new ViewPagerSecondFragment());
         for (int i = 0; i < PageNo; i++) {
             GoodBean bean = new GoodBean();
             bean.setGoodName("衣服" + (i + 1));
             goodList.add(bean);
         }
-        shoppingCartAdapter = new ShoppingCartAdapter(getActivity(), goodList,bannerList);
+        shoppingCartAdapter = new ShoppingCartAdapter(getActivity(), goodList, bannerList, fragmentList,getChildFragmentManager());
         thirdRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         thirdRecyclerView.setAdapter(shoppingCartAdapter);
 //        getCookData();

@@ -26,6 +26,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private Context context;
     private List<CategoryBean> list;
 
+    public CategoryAdapter(Context context, List<CategoryBean> list) {
+        this.context = context;
+        this.list = list;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.category_item, parent, false);

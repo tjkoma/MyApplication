@@ -1,6 +1,8 @@
 package com.jshc.waveprogressbar.adapters;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,13 +30,17 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Context context;
     private List<GoodBean> list;
     private List<String> bannerList;
+    private List<Fragment> fragmentList;
+    private FragmentManager fragmentManager;
     private static final int BANNER_ITEM = 0;
     private static final int RECYCLER_ITEM = 1;
 
-    public ShoppingCartAdapter(Context context, List<GoodBean> list, List<String> bannerList) {
+    public ShoppingCartAdapter(Context context, List<GoodBean> list, List<String> bannerList, List<Fragment> fragmentList, FragmentManager fragmentManager) {
         this.context = context;
         this.list = list;
         this.bannerList = bannerList;
+        this.fragmentList = fragmentList;
+        this.fragmentManager = fragmentManager;
     }
 
     @Override
@@ -70,6 +76,10 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((CommenViewHolder) holder).goodNameTextView.setText(list.get(realPosition(position)).getGoodName());
         } else {
             ((BannerViewHolder) holder).shoppingBanner.setImages(bannerList).setImageLoader(new GlideImageLoader()).start();
+            CateViewPageAdapter cateViewPageAdapter = new CateViewPageAdapter(fragmentManager,context,fragmentList);
+//            cateViewPageAdapter.addFragment(new ViewPagerFirstFragment());
+//            cateViewPageAdapter.addFragment(new ViewPagerSecondFragment());
+            ((BannerViewHolder) holder).shoppingViewPager.setAdapter(cateViewPageAdapter);
         }
     }
 
