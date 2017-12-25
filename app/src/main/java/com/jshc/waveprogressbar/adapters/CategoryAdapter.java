@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jshc.waveprogressbar.R;
 import com.jshc.waveprogressbar.beans.CategoryBean;
+import com.jshc.waveprogressbar.utils.RoundBitmapTransform;
 
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Glide.with(context).load(list.get(position).getImage()).into(((CateItemViewHolder) holder).categoryCircleImageView);
+        Glide.with(context).load(list.get(position).getImage()).transform(new RoundBitmapTransform(context,10)).into(((CateItemViewHolder)holder).categoryCircleImageView);
         ((CateItemViewHolder) holder).categoryTextView.setText(list.get(position).getName());
     }
 
