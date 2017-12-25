@@ -50,9 +50,6 @@ public class MyMapActivity extends AppCompatActivity {
     private UiSettings uiSettings;
     private AMapLocationClient aMapLocationClient;
     private AMapLocationClientOption locationClientOption;
-    private boolean followMove = true;
-    private double latitude;
-    private double longitude;
     private CameraUpdate mCameraUpdate;
 
     @Override
@@ -84,6 +81,7 @@ public class MyMapActivity extends AppCompatActivity {
         aMap.setMapType(AMap.MAP_TYPE_NAVI);//设置成导航地图
         uiSettings.setMyLocationButtonEnabled(true);
         uiSettings.setScaleControlsEnabled(true);
+
         locationClientOption.setOnceLocation(true);//设置单次定位
     }
 
