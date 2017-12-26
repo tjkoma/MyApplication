@@ -1,8 +1,9 @@
 package com.jshc.waveprogressbar.activitys;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -18,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @BindView(R.id.replace_linearLayout)
@@ -31,9 +32,13 @@ public class MainActivity extends AppCompatActivity {
     TextView thirdTextView;
     @BindView(R.id.forth_textView)
     TextView forthTextView;
+    @BindView(R.id.ll_bar)
+    LinearLayout llBar;
+    @BindView(R.id.bottom_lineatLayout)
+    LinearLayout bottomLineatLayout;
     private AlertDialog mAlertDialog;
 
-    private android.support.v4.app.FragmentManager fragmentManager;
+    private FragmentManager fragmentManager;
     private FirstFragment firstFragment;
     private SecondFragment secondFragment;
     private ThirdFragment thirdFragment;
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        setStateBar(llBar);
         firstTextView.performClick();
 //        initView();
     }
@@ -59,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick({R.id.first_textView, R.id.second_textView, R.id.third_textView, R.id.forth_textView})
     public void onViewClick(View view) {
         fragmentManager = getSupportFragmentManager();
-        android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
         hideAllFragment(transaction);
         resetTextViewState();
         switch (view.getId()) {
@@ -112,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param fragmentTransaction
      */
-    private void hideAllFragment(android.support.v4.app.FragmentTransaction fragmentTransaction) {
+    private void hideAllFragment(FragmentTransaction fragmentTransaction) {
         if (firstFragment != null) {
             fragmentTransaction.hide(firstFragment);
         }
