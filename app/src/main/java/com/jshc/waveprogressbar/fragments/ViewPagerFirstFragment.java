@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.jshc.waveprogressbar.R;
 import com.jshc.waveprogressbar.adapters.CategoryAdapter;
@@ -24,7 +25,7 @@ import butterknife.Unbinder;
  * Created by JinT on 2017/12/25 0025.
  */
 
-public class ViewPagerFirstFragment extends Fragment {
+public class ViewPagerFirstFragment extends Fragment implements CategoryAdapter.OnItemClickListener {
 
     Unbinder unbinder;
     @BindView(R.id.viewpager_first_recyclerView)
@@ -82,11 +83,23 @@ public class ViewPagerFirstFragment extends Fragment {
         categoryAdapter = new CategoryAdapter(getActivity(), cateList);
         viewpagerFirstRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         viewpagerFirstRecyclerView.setAdapter(categoryAdapter);
+        categoryAdapter.setOnItemClickListener(this);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    /**
+     * 条目点击事件
+     *
+     * @param str
+     * @param index
+     */
+    @Override
+    public void itemClick(String str, int index) {
+        Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
     }
 }
