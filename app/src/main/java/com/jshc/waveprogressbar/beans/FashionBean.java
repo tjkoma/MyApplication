@@ -1,0 +1,44 @@
+package com.jshc.waveprogressbar.beans;
+
+/**
+ * Created by JinT on 2017/12/26 0026.
+ */
+
+public class FashionBean {
+    private int id;
+    private String name;
+    private String image;
+
+    public FashionBean() {
+    }
+
+    public FashionBean(int id, String name, String image) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+}
