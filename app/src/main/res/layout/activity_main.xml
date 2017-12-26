@@ -6,6 +6,14 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll_bar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/yellow"
+        android:orientation="vertical"
+        android:visibility="gone" />
+
+    <LinearLayout
         android:id="@+id/replace_linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
