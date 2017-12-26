@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +25,7 @@ import butterknife.ButterKnife;
 public class GoodListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private List<GoodBean> list;
+    private OnGoodItemClickListener listener;
 
     public GoodListAdapter(Context context, List<GoodBean> list) {
         this.context = context;
@@ -38,9 +40,15 @@ public class GoodListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         Glide.with(context).load(list.get(position).getGoodImage()).into(((GoodViewHolder) holder).goodImageImageView);
         ((GoodViewHolder) holder).goodNameTextView.setText(list.get(position).getGoodName());
+        ((GoodViewHolder) holder).goodLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onGoodItemClick(list.get(position).getGoodName(), position);
+            }
+        });
     }
 
     @Override
@@ -49,6 +57,8 @@ public class GoodListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class GoodViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.good_LinearLayout)
+        LinearLayout goodLinearLayout;
         @BindView(R.id.goodImage_imageView)
         ImageView goodImageImageView;
         @BindView(R.id.goodName_textView)
@@ -58,5 +68,13 @@ public class GoodListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(GoodItemView);
             ButterKnife.bind(this, GoodItemView);
         }
+    }
+
+    public void setOnGoodItemClickListener(OnGoodItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnGoodItemClickListener {
+        void onGoodItemClick(String str, int index);
     }
 }

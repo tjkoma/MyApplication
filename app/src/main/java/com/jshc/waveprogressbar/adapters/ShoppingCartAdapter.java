@@ -1,6 +1,7 @@
 package com.jshc.waveprogressbar.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -10,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jshc.waveprogressbar.R;
+import com.jshc.waveprogressbar.activitys.GoodDetailsActivity;
 import com.jshc.waveprogressbar.beans.FashionBean;
 import com.jshc.waveprogressbar.beans.GoodBean;
 import com.jshc.waveprogressbar.utils.GlideImageLoader;
@@ -27,7 +30,7 @@ import butterknife.ButterKnife;
  * Created by JinT on 2017/12/15 0015.
  */
 
-public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements GoodListAdapter.OnGoodItemClickListener {
     private Context context;
     private List<GoodBean> list;
     private List<String> bannerList;
@@ -84,7 +87,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 viewHolder = new GridViewHolder(griditemView);
                 break;
             case RECYCLER_ITEM:
-                View view = LayoutInflater.from(context).inflate(R.layout.shopping_cart_item, null);
+                View view = LayoutInflater.from(context).inflate(R.layout.shopping_cart_item, parent, false);
                 viewHolder = new CommonViewHolder(view);
                 break;
         }
@@ -94,7 +97,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof BannerViewHolder) {
-            ((BannerViewHolder) holder).shoppingBanner.setImages(bannerList).setImageLoader(new GlideImageLoader()).start();
+            ((BannerViewHolder) holder).shoppingBanner.setImages(bannerList).setImageLoader(new GlideImageLoader()).setDelayTime(3000).start();
         } else if (holder instanceof ViewPagerViewHolder) {
 
             CateViewPageAdapter cateViewPageAdapter = new CateViewPageAdapter(fragmentManager, context, fragmentList);
@@ -129,8 +132,16 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((GridViewHolder) holder).gridviewRecyclerView.setAdapter(fashionAdapter);
         } else {
             GoodListAdapter goodListAdapter = new GoodListAdapter(context, list);
-            ((CommonViewHolder) holder).commonRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+            //修改GridLayoutManager的LayoutParams，让视图填充完整
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2) {
+                @Override
+                public RecyclerView.LayoutParams generateDefaultLayoutParams() {
+                    return new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                }
+            };
+            ((CommonViewHolder) holder).commonRecyclerView.setLayoutManager(gridLayoutManager);
             ((CommonViewHolder) holder).commonRecyclerView.setAdapter(goodListAdapter);
+            goodListAdapter.setOnGoodItemClickListener(this);
         }
     }
 
@@ -153,6 +164,19 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             recyclerItem = 1;
         }
         return recyclerItem + bannerItem + viewPagerItem + gridItem;
+    }
+
+    /**
+     * 条目点击事件
+     *
+     * @param str
+     * @param index
+     */
+    @Override
+    public void onGoodItemClick(String str, int index) {
+        Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(context, GoodDetailsActivity.class);
+        context.startActivity(intent);
     }
 
     public class BannerViewHolder extends RecyclerView.ViewHolder {

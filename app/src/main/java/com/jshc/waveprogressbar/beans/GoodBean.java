@@ -8,6 +8,14 @@ public class GoodBean {
     private String goodImage;
     private String goodName;
 
+    public GoodBean() {
+    }
+
+    public GoodBean(String goodImage, String goodName) {
+        this.goodImage = goodImage;
+        this.goodName = goodName;
+    }
+
     public String getGoodImage() {
         return goodImage;
     }

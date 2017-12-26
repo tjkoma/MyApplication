@@ -62,7 +62,7 @@ public class ThirdFragment extends Fragment {
     private List<GoodBean> goodList;
     private List<String> bannerList;
     private ApiService apiService;
-    private int PageNo = 10;
+    private int PageNo = 50;
     private List<Fragment> fragmentList;
     private List<FashionBean> fashionBeanList;
 
@@ -125,9 +125,14 @@ public class ThirdFragment extends Fragment {
             }
         }
         for (int i = 0; i < PageNo; i++) {
-            GoodBean bean = new GoodBean();
-            bean.setGoodName("衣服" + (i + 1));
-            bean.setGoodImage("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514279410337&di=b1a04023d1ef0ee1ab74cc45d8177306&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F140706%2F318739-140F60I23854.jpg");
+            GoodBean bean = null;
+            if (i % 2 == 0) {
+                bean = new GoodBean("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514283263480&di=365008e79218598a07d14a57f5719ebd&imgtype=0" +
+                        "&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F0df3d7ca7bcb0a4667e41afa6163f6246a60af2b.jpg", "时尚潮裙" + (i + 1));
+            } else {
+                bean = new GoodBean("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514279410337&di=b1a04023d1ef0ee1ab74cc45d8177306&imgtype=0" +
+                        "&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F140706%2F318739-140F60I23854.jpg", "时尚潮裙" + (i + 1));
+            }
             goodList.add(bean);
         }
         shoppingCartAdapter = new ShoppingCartAdapter(getActivity(), goodList, bannerList, fragmentList, fashionBeanList, getChildFragmentManager());
