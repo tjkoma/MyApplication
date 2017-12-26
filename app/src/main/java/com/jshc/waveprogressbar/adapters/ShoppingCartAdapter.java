@@ -4,15 +4,15 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.jshc.waveprogressbar.R;
+import com.jshc.waveprogressbar.beans.FashionBean;
 import com.jshc.waveprogressbar.beans.GoodBean;
 import com.jshc.waveprogressbar.utils.GlideImageLoader;
 import com.youth.banner.Banner;
@@ -32,17 +32,24 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private List<GoodBean> list;
     private List<String> bannerList;
     private List<Fragment> fragmentList;
+    private List<FashionBean> fashionBeanList;
     private FragmentManager fragmentManager;
-    private static final int BANNER_ITEM = 0;
-    private static final int VIEWPAGER_ITEM = 1;
-    private static final int GRID_ITEM = 2;
-    private static final int RECYCLER_ITEM = 3;
+    private int bannerItem = 0;
+    private int viewPagerItem = 0;
+    private int gridItem = 0;
+    private int recyclerItem = 0;
 
-    public ShoppingCartAdapter(Context context, List<GoodBean> list, List<String> bannerList, List<Fragment> fragmentList, FragmentManager fragmentManager) {
+    private static final int BANNER_ITEM = 0;//banner图
+    private static final int VIEWPAGER_ITEM = 1;//分类选择viewpager
+    private static final int GRID_ITEM = 2;//分类选择gridview
+    private static final int RECYCLER_ITEM = 3;//普通的条目
+
+    public ShoppingCartAdapter(Context context, List<GoodBean> list, List<String> bannerList, List<Fragment> fragmentList, List<FashionBean> fashionBeanList, FragmentManager fragmentManager) {
         this.context = context;
         this.list = list;
         this.bannerList = bannerList;
         this.fragmentList = fragmentList;
+        this.fashionBeanList = fashionBeanList;
         this.fragmentManager = fragmentManager;
     }
 
@@ -73,10 +80,11 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 viewHolder = new ViewPagerViewHolder(viewpagerView);
                 break;
             case GRID_ITEM:
-
+                View griditemView = LayoutInflater.from(context).inflate(R.layout.gridview_item, parent, false);
+                viewHolder = new GridViewHolder(griditemView);
                 break;
             case RECYCLER_ITEM:
-                View view = LayoutInflater.from(context).inflate(R.layout.shopping_cart_item, parent, false);
+                View view = LayoutInflater.from(context).inflate(R.layout.shopping_cart_item, null);
                 viewHolder = new CommonViewHolder(view);
                 break;
         }
@@ -85,12 +93,9 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof CommonViewHolder) {
-            Glide.with(context).load("http://img3.redocn.com/20130602/Redocn_2013052815464777.jpg").into(((CommonViewHolder) holder).goodImageImageView);
-            ((CommonViewHolder) holder).goodNameTextView.setText(list.get(realPosition(position)).getGoodName());
-        } else if (holder instanceof BannerViewHolder) {
+        if (holder instanceof BannerViewHolder) {
             ((BannerViewHolder) holder).shoppingBanner.setImages(bannerList).setImageLoader(new GlideImageLoader()).start();
-        } else {
+        } else if (holder instanceof ViewPagerViewHolder) {
 
             CateViewPageAdapter cateViewPageAdapter = new CateViewPageAdapter(fragmentManager, context, fragmentList);
             ((ViewPagerViewHolder) holder).categoryViewPager.setAdapter(cateViewPageAdapter);
@@ -118,22 +123,36 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             });
 
+        } else if (holder instanceof GridViewHolder) {
+            FashionAdapter fashionAdapter = new FashionAdapter(context, fashionBeanList);
+            ((GridViewHolder) holder).gridviewRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
+            ((GridViewHolder) holder).gridviewRecyclerView.setAdapter(fashionAdapter);
+        } else {
+            GoodListAdapter goodListAdapter = new GoodListAdapter(context, list);
+            ((CommonViewHolder) holder).commonRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+            ((CommonViewHolder) holder).commonRecyclerView.setAdapter(goodListAdapter);
         }
     }
 
     public int realPosition(int pos) {
-        return pos - 2;
+        return pos - bannerItem - viewPagerItem - gridItem;
     }
 
     @Override
     public int getItemCount() {
-        if (bannerList.isEmpty() && fragmentList.isEmpty()) {
-            return list.size();
-        } else if (bannerList.isEmpty() && fragmentList.isEmpty()) {
-            return list.size() + 1;
-        } else {
-            return list.size() + 2;
+        if (!bannerList.isEmpty()) {
+            bannerItem = 1;
         }
+        if (!fragmentList.isEmpty()) {
+            viewPagerItem = 1;
+        }
+        if (!fashionBeanList.isEmpty()) {
+            gridItem = 1;
+        }
+        if (!list.isEmpty()) {
+            recyclerItem = 1;
+        }
+        return recyclerItem + bannerItem + viewPagerItem + gridItem;
     }
 
     public class BannerViewHolder extends RecyclerView.ViewHolder {
@@ -160,18 +179,21 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public class GridViewHolder extends RecyclerView.ViewHolder{
+    public class GridViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.newsflash_textView)
+        TextView newsflashTextView;
+        @BindView(R.id.gridview_recyclerView)
+        RecyclerView gridviewRecyclerView;
 
         public GridViewHolder(View gridItemView) {
             super(gridItemView);
+            ButterKnife.bind(this, gridItemView);
         }
     }
 
     public class CommonViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.goodImage_imageView)
-        ImageView goodImageImageView;
-        @BindView(R.id.goodName_textView)
-        TextView goodNameTextView;
+        @BindView(R.id.common_recyclerView)
+        RecyclerView commonRecyclerView;
 
         public CommonViewHolder(View item) {
             super(item);
