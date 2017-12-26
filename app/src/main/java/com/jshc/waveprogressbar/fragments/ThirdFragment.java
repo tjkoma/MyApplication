@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.jshc.waveprogressbar.R;
 import com.jshc.waveprogressbar.adapters.ShoppingCartAdapter;
 import com.jshc.waveprogressbar.beans.CookBean;
+import com.jshc.waveprogressbar.beans.FashionBean;
 import com.jshc.waveprogressbar.beans.GoodBean;
 import com.jshc.waveprogressbar.services.ApiService;
 import com.jshc.waveprogressbar.utils.RetrofitUtils;
@@ -63,6 +64,7 @@ public class ThirdFragment extends Fragment {
     private ApiService apiService;
     private int PageNo = 10;
     private List<Fragment> fragmentList;
+    private List<FashionBean> fashionBeanList;
 
     @Nullable
     @Override
@@ -78,6 +80,7 @@ public class ThirdFragment extends Fragment {
         goodList = new ArrayList<>();
         bannerList = new ArrayList<>();
         fragmentList = new ArrayList<>();
+        fashionBeanList = new ArrayList<>();
         bannerList.add("http://img2.niutuku.com/desk/1208/1924/ntk-1924-20355.jpg");
         bannerList.add("http://www.wallcoo.com/1440x900/1440x900_CG_design_wallpapers/wallpapers/1440x900/Free_High_resolution_wallpaper_00402_peacewhenthedayisdone_1440x900.jpg");
         bannerList.add("http://dl.bizhi.sogou.com/images/2012/01/27/31794.jpg");
@@ -85,12 +88,49 @@ public class ThirdFragment extends Fragment {
         bannerList.add("http://img2.niutuku.com/desk/1208/1508/ntk-1508-32823.jpg");
         fragmentList.add(new ViewPagerFirstFragment());
         fragmentList.add(new ViewPagerSecondFragment());
+        for (int i = 0; i < 8; i++) {
+            switch (i) {
+                case 0:
+                    FashionBean fashionBean0 = new FashionBean(i, "时尚手机", "http://pic.58pic.com/58pic/13/58/79/01m58PICyN5_1024.jpg");
+                    fashionBeanList.add(fashionBean0);
+                    break;
+                case 1:
+                    FashionBean fashionBean1 = new FashionBean(i, "欧美风", "http://img5.duitang.com/uploads/item/201407/31/20140731115255_AMZQT.png");
+                    fashionBeanList.add(fashionBean1);
+                    break;
+                case 2:
+                    FashionBean fashionBean2 = new FashionBean(i, "爱宝宝", "http://a0.att.hudong.com/52/06/28300001051406137281063561335_950.jpg");
+                    fashionBeanList.add(fashionBean2);
+                    break;
+                case 3:
+                    FashionBean fashionBean3 = new FashionBean(i, "爱美丽", "http://img0.imgtn.bdimg.com/it/u=2274895555,3989399360&fm=214&gp=0.jpg");
+                    fashionBeanList.add(fashionBean3);
+                    break;
+                case 4:
+                    FashionBean fashionBean4 = new FashionBean(i, "爱吃", "http://img.redocn.com/sheying/20160711/woaichixiguaertonghua_6682037.jpg");
+                    fashionBeanList.add(fashionBean4);
+                    break;
+                case 5:
+                    FashionBean fashionBean5 = new FashionBean(i, "精选", "http://pic25.photophoto.cn/20121028/0017030070382546_b.jpg");
+                    fashionBeanList.add(fashionBean5);
+                    break;
+                case 6:
+                    FashionBean fashionBean6 = new FashionBean(i, "首发", "http://image20.it168.com/201503_800x800/2136/c3a2a77ce78e2031.jpg");
+                    fashionBeanList.add(fashionBean6);
+                    break;
+                case 7:
+                    FashionBean fashionBean7 = new FashionBean(i, "闪购", "http://img.25pp.com/uploadfile/app/icon/20160625/1466837378743751.jpg");
+                    fashionBeanList.add(fashionBean7);
+                    break;
+            }
+        }
         for (int i = 0; i < PageNo; i++) {
             GoodBean bean = new GoodBean();
             bean.setGoodName("衣服" + (i + 1));
+            bean.setGoodImage("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514279410337&di=b1a04023d1ef0ee1ab74cc45d8177306&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F140706%2F318739-140F60I23854.jpg");
             goodList.add(bean);
         }
-        shoppingCartAdapter = new ShoppingCartAdapter(getActivity(), goodList, bannerList, fragmentList,getChildFragmentManager());
+        shoppingCartAdapter = new ShoppingCartAdapter(getActivity(), goodList, bannerList, fragmentList, fashionBeanList, getChildFragmentManager());
         thirdRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         thirdRecyclerView.setAdapter(shoppingCartAdapter);
 //        getCookData();
