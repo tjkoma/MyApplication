@@ -3,9 +3,9 @@ package com.jshc.waveprogressbar.views;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -16,7 +16,7 @@ import com.jshc.waveprogressbar.R;
  */
 
 public class SiderView extends View {
-    private String[] words = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"};
+    private String[] words;
     private int width, height;
     private Paint textPaint;
     private OnTextSelectListener listener;
@@ -31,6 +31,10 @@ public class SiderView extends View {
 
     public SiderView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    public void setSiderText(String[] words) {
+        this.words = words;
     }
 
     @Override
@@ -49,7 +53,9 @@ public class SiderView extends View {
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(40f);
         for (int i = 0; i < words.length; i++) {
-            canvas.drawText(words[i], width / 2, (height / words.length) * (i + 1) - (height / words.length) / 2, textPaint);
+            Rect rect = new Rect();
+            textPaint.getTextBounds(words[i], 0, words[i].length(), rect);
+            canvas.drawText(words[i], width / 2 - rect.width() / 2, (height / words.length) * (i + 1) - (height / words.length) / 2 + rect.height() / 2, textPaint);
         }
     }
 

@@ -16,7 +16,7 @@
 
         <com.jshc.waveprogressbar.views.SiderView
             android:id="@+id/siderView"
-            android:layout_width="40dp"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
             android:layout_gravity="right"
             android:background="@color/unselectSider" />

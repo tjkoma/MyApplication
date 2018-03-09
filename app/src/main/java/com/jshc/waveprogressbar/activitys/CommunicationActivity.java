@@ -46,6 +46,7 @@ public class CommunicationActivity extends BaseActivity implements SiderView.OnT
 
     private void initView() {
         list = new ArrayList<>();
+        siderView.setSiderText(words);
         siderView.setOnTextSelectListener(this);
         for (int i = 0; i < words.length; i++) {
             FriendBean bean = new FriendBean(words[i]);
