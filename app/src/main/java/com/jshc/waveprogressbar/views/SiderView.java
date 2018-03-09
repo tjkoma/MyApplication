@@ -65,7 +65,6 @@ public class SiderView extends View {
                 if (postion1 - 1 >= 0 && postion1 < words.length + 1) {
                     listener.onTextClick(1, words[postion1 - 1]);
                 }
-                Log.e("text", y + "");
                 break;
             case MotionEvent.ACTION_MOVE:
                 setBackgroundColor(getResources().getColor(R.color.siderBackground));

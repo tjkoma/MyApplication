@@ -68,6 +68,8 @@ public class CommunicationActivity extends BaseActivity implements SiderView.OnT
                 for (int i = 0; i < words.length; i++) {
                     if (text.equals(words[i])) {
                         friendRecyclerView.scrollToPosition(i);
+                        LinearLayoutManager manager = (LinearLayoutManager) friendRecyclerView.getLayoutManager();
+                        manager.scrollToPositionWithOffset(i, 0);
                     }
                 }
                 break;
