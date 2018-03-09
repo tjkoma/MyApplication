@@ -62,7 +62,7 @@ public class SiderView extends View {
                 setBackgroundColor(getResources().getColor(R.color.siderBackground));
                 y = event.getRawY();
                 int postion1 = (int) (y / (height / words.length));
-                if (postion1 - 1 >= 0) {
+                if (postion1 - 1 >= 0 && postion1 < words.length + 1) {
                     listener.onTextClick(1, words[postion1 - 1]);
                 }
                 Log.e("text", y + "");
