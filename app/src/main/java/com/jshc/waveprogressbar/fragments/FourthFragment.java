@@ -82,7 +82,7 @@ public class FourthFragment extends Fragment implements MineAdapter.OnMineItemCl
                 Intent communIntent = new Intent(getActivity(), CommunicationActivity.class);
                 startActivity(communIntent);
                 break;
-            case 3:
+            case 4:
                 Intent intent = new Intent(getActivity(), MyMapActivity.class);
                 startActivity(intent);
                 break;
