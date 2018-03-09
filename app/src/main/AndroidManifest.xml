@@ -38,11 +38,11 @@
         <activity
             android:name=".activitys.MyMapActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <activity android:name=".activitys.GoodDetailsActivity" />
+        <activity android:name=".activitys.CommunicationActivity"></activity>
 
         <!-- Service -->
         <service android:name="com.amap.api.location.APSService" />
-
-        <activity android:name=".activitys.GoodDetailsActivity"></activity>
     </application>
 
 </manifest>

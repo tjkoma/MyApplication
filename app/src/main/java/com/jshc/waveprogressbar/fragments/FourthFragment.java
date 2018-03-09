@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jshc.waveprogressbar.R;
+import com.jshc.waveprogressbar.activitys.CommunicationActivity;
 import com.jshc.waveprogressbar.activitys.MyMapActivity;
 import com.jshc.waveprogressbar.adapters.MineAdapter;
 
@@ -50,7 +51,9 @@ public class FourthFragment extends Fragment implements MineAdapter.OnMineItemCl
         mineCollapsingToolbarLayout.setTitle("我的");
         mineList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            if (i == 3) {
+            if (i == 1) {
+                mineList.add("通讯录");
+            } else if (i == 3) {
                 mineList.add("我的运动");
             }
             mineList.add(i + 1 + "");
@@ -76,7 +79,8 @@ public class FourthFragment extends Fragment implements MineAdapter.OnMineItemCl
     public void onItemClick(int index) {
         switch (index) {
             case 1:
-
+                Intent communIntent = new Intent(getActivity(), CommunicationActivity.class);
+                startActivity(communIntent);
                 break;
             case 3:
                 Intent intent = new Intent(getActivity(), MyMapActivity.class);

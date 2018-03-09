@@ -9,4 +9,6 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="buttomText">#797979</color>
+    <color name="siderBackground">#90797979</color>
+    <color name="unselectSider">#00FFFFFF</color>
 </resources>
