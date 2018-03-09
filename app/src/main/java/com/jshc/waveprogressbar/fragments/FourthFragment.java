@@ -74,9 +74,11 @@ public class FourthFragment extends Fragment implements MineAdapter.OnMineItemCl
      */
     @Override
     public void onItemClick(int index) {
-        if (index == 3) {
-            Intent intent = new Intent(getActivity(), MyMapActivity.class);
-            startActivity(intent);
+        switch (index) {
+            case 3:
+                Intent intent = new Intent(getActivity(), MyMapActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 }

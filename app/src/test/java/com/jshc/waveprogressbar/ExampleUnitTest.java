@@ -1,4 +1,4 @@
-package com.jshc.myapplication;
+package com.jshc.waveprogressbar;
 
 import org.junit.Test;
 
