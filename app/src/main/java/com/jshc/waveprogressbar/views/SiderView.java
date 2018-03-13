@@ -40,6 +40,7 @@ public class SiderView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int heightMeasureMode = MeasureSpec.getMode(heightMeasureSpec);
         width = getMeasuredWidth();
         height = getMeasuredHeight();
         setMeasuredDimension(width, height);
