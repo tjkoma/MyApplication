@@ -5,5 +5,5 @@ package com.jshc.waveprogressbar.presenters;
  */
 
 public class FpresenterImpl implements Fpresenter {
-    
+
 }
