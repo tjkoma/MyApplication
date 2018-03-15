@@ -5,5 +5,9 @@ package com.jshc.waveprogressbar.modles;
  */
 
 public interface Fmodel {
+    interface OndataCallback<T>{
+        void onSuccessed(T data);
+        void onFailed();
+    }
     void getData();
 }
