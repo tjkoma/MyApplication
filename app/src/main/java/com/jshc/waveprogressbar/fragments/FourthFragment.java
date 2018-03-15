@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.jshc.waveprogressbar.R;
 import com.jshc.waveprogressbar.activitys.CommunicationActivity;
 import com.jshc.waveprogressbar.activitys.MyMapActivity;
+import com.jshc.waveprogressbar.activitys.RecordActivity;
 import com.jshc.waveprogressbar.adapters.MineAdapter;
 
 import java.util.ArrayList;
@@ -53,8 +54,11 @@ public class FourthFragment extends Fragment implements MineAdapter.OnMineItemCl
         for (int i = 0; i < 20; i++) {
             if (i == 1) {
                 mineList.add("通讯录");
+                continue;
             } else if (i == 3) {
                 mineList.add("我的运动");
+            } else if (i == 5) {
+                mineList.add("数据");
             }
             mineList.add(i + 1 + "");
         }
@@ -85,6 +89,10 @@ public class FourthFragment extends Fragment implements MineAdapter.OnMineItemCl
             case 4:
                 Intent intent = new Intent(getActivity(), MyMapActivity.class);
                 startActivity(intent);
+                break;
+            case 6:
+                Intent dataIntent = new Intent(getActivity(), RecordActivity.class);
+                startActivity(dataIntent);
                 break;
         }
     }
