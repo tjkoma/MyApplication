@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jshc.waveprogressbar.R;
+import com.jshc.waveprogressbar.activitys.CardsActivity;
 import com.jshc.waveprogressbar.activitys.CommunicationActivity;
 import com.jshc.waveprogressbar.activitys.MyMapActivity;
 import com.jshc.waveprogressbar.activitys.RecordActivity;
@@ -91,7 +92,7 @@ public class FourthFragment extends Fragment implements MineAdapter.OnMineItemCl
                 startActivity(intent);
                 break;
             case 6:
-                Intent dataIntent = new Intent(getActivity(), RecordActivity.class);
+                Intent dataIntent = new Intent(getActivity(), CardsActivity.class);
                 startActivity(dataIntent);
                 break;
         }

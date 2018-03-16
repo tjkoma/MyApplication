@@ -44,7 +44,8 @@
         <!-- Service -->
         <service android:name="com.amap.api.location.APSService" />
 
-        <activity android:name=".activitys.RecordActivity"></activity>
+        <activity android:name=".activitys.RecordActivity" />
+        <activity android:name=".activitys.CardsActivity"></activity>
     </application>
 
 </manifest>
