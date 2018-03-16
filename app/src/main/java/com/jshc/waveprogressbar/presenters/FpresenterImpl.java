@@ -2,8 +2,6 @@ package com.jshc.waveprogressbar.presenters;
 
 import com.jshc.waveprogressbar.modles.Fmodel;
 import com.jshc.waveprogressbar.views.Fview;
-
-import java.util.HashMap;
 import java.util.Map;
 
 /**
