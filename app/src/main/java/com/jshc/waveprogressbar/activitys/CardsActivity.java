@@ -1,5 +1,6 @@
 package com.jshc.waveprogressbar.activitys;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,13 +33,15 @@ public class CardsActivity extends BaseActivity {
 
     private void initView() {
         cardBeanList = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 10; i++) {
             CardBean bean = new CardBean(i, "", "");
             cardBeanList.add(bean);
         }
         cardsAdapter = new CardsAdapter(this, cardBeanList);
         cardsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        cardsRecyclerView.addItemDecoration(new CardsItemDecoration(-50));
+        cardsRecyclerView.addItemDecoration(new CardsItemDecoration(-100));
         cardsRecyclerView.setAdapter(cardsAdapter);
     }
+
+
 }

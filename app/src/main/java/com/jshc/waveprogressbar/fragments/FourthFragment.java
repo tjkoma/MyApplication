@@ -60,8 +60,12 @@ public class FourthFragment extends Fragment implements MineAdapter.OnMineItemCl
                 mineList.add("我的运动");
             } else if (i == 5) {
                 mineList.add("数据");
+            } else if (i == 7) {
+                mineList.add("卡片");
+            } else {
+                mineList.add(i + 1 + "");
             }
-            mineList.add(i + 1 + "");
+
         }
         mineAdapter = new MineAdapter(getActivity(), mineList);
         mineRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -87,13 +91,17 @@ public class FourthFragment extends Fragment implements MineAdapter.OnMineItemCl
                 Intent communIntent = new Intent(getActivity(), CommunicationActivity.class);
                 startActivity(communIntent);
                 break;
-            case 4:
+            case 3:
                 Intent intent = new Intent(getActivity(), MyMapActivity.class);
                 startActivity(intent);
                 break;
-            case 6:
-                Intent dataIntent = new Intent(getActivity(), CardsActivity.class);
+            case 5:
+                Intent dataIntent = new Intent(getActivity(), RecordActivity.class);
                 startActivity(dataIntent);
+                break;
+            case 7:
+                Intent cardIntent = new Intent(getActivity(), CardsActivity.class);
+                startActivity(cardIntent);
                 break;
         }
     }
