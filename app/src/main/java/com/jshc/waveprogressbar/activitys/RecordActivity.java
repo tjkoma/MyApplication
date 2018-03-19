@@ -12,6 +12,7 @@ import com.jshc.waveprogressbar.modles.FmodelImpl;
 import com.jshc.waveprogressbar.presenters.Fpresenter;
 import com.jshc.waveprogressbar.presenters.FpresenterImpl;
 import com.jshc.waveprogressbar.utils.HttpUrlConstant;
+import com.jshc.waveprogressbar.utils.JNIUtil;
 import com.jshc.waveprogressbar.views.Fview;
 
 import java.util.HashMap;
@@ -27,8 +28,11 @@ public class RecordActivity<T> extends AppCompatActivity implements Fview<T> {
     Button getDataBtn;
     @BindView(R.id.data_textView)
     TextView dataTextView;
+    @BindView(R.id.jni_textView)
+    TextView jniTextView;
 
     private Fpresenter fpresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,8 @@ public class RecordActivity<T> extends AppCompatActivity implements Fview<T> {
     }
 
     private void initView() {
+        JNIUtil jniUtil = new JNIUtil();
+        jniTextView.setText(jniUtil.getMessage());
         fpresenter = new FpresenterImpl<>(this, new FmodelImpl());
     }
 

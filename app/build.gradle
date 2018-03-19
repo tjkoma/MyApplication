@@ -9,6 +9,17 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            moduleName "JNIUtil"
+            abiFilters "armeabi","armeabi-v7a", "x86" // 指定生成的CPU架构对应的so库
+        }
+
+        sourceSets.main {
+            jniLibs.srcDir 'libs'
+            jni.srcDirs = []
+        }
+
     }
     buildTypes {
         release {
