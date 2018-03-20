@@ -11,12 +11,13 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
-            moduleName "JNIUtil"
-            abiFilters "armeabi","armeabi-v7a", "x86" // 指定生成的CPU架构对应的so库
+            moduleName "JNItest"
+            abiFilters "arm64-v8a", "armeabi", "armeabi-v7a", "mips", "mips64", "x86", "x86_64"
+            // 指定生成的CPU架构对应的so库
         }
 
         sourceSets.main {
-            jniLibs.srcDir 'libs'
+            jniLibs.srcDir 'src/main/libs'
             jni.srcDirs = []
         }
 

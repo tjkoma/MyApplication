@@ -7,7 +7,7 @@ package com.jshc.waveprogressbar.utils;
 public class JNIUtil {
 
     static {
-        System.loadLibrary("JNIUtil");
+        System.loadLibrary("JNItest");
     }
     public native String getMessage();
 }

@@ -12,9 +12,9 @@ extern "C" {
  * Method:    getMessage
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_jshc_waveprogressbar_utils_JNIUtil_getMessage(JNIEnv *, jobject)
+JNIEXPORT jstring JNICALL Java_com_jshc_waveprogressbar_utils_JNIUtil_getMessage(JNIEnv *env, jobject)
 {
-    return env -> newStringUTF("test JNI!");
+    return env -> NewStringUTF("我的第一个JNI程序!");
 };
 
 #ifdef __cplusplus

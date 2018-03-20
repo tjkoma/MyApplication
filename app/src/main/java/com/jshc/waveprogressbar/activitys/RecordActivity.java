@@ -1,7 +1,6 @@
 package com.jshc.waveprogressbar.activitys;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RecordActivity<T> extends AppCompatActivity implements Fview<T> {
+public class RecordActivity<T> extends BaseActivity implements Fview<T> {
     private static final String TAG = RecordActivity.class.getSimpleName();
     @BindView(R.id.getData_btn)
     Button getDataBtn;
