@@ -21,6 +21,9 @@
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="40dp"
+            android:background="@color/siderBackground"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
             android:paddingLeft="10dp"
             android:textColor="@color/black"
             android:textSize="14sp" />

@@ -2,20 +2,18 @@ package com.jshc.waveprogressbar.activitys;
 
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.MotionEvent;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
@@ -44,6 +42,8 @@ public class MyMapActivity extends AppCompatActivity {
     MapView mapView;
     @BindView(R.id.base_imageView)
     ImageView baseImageView;
+    @BindView(R.id.mymap_editText)
+    EditText mymapEditText;
 
     private MyLocationStyle myLocationStyle;
     private AMap aMap;
@@ -83,6 +83,15 @@ public class MyMapActivity extends AppCompatActivity {
         uiSettings.setScaleControlsEnabled(true);
 
         locationClientOption.setOnceLocation(true);//设置单次定位
+        mymapEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_SEARCH) {
+
+                }
+                return false;
+            }
+        });
     }
 
     @OnClick({R.id.base_imageView})

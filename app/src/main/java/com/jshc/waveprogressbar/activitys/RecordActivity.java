@@ -57,6 +57,9 @@ public class RecordActivity<T> extends BaseActivity implements Fview<T> {
                 map.put("pn", "1");
                 map.put("rn", "20");
                 map.put("albums", 1);
+
+
+
                 fpresenter.getRequstData(HttpUrlConstant.GETCOOK, map);
                 break;
         }
