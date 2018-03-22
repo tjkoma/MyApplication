@@ -44,6 +44,13 @@ public class SiderView extends View {
         width = getMeasuredWidth();
         height = getMeasuredHeight();
         setMeasuredDimension(width, height);
+        if (heightMeasureMode == MeasureSpec.AT_MOST) {
+
+        } else if (heightMeasureMode == MeasureSpec.EXACTLY) {
+
+        } else if (heightMeasureMode == MeasureSpec.UNSPECIFIED) {
+
+        }
     }
 
     @Override
