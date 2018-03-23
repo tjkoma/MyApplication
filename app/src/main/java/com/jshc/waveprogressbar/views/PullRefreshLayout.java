@@ -36,6 +36,12 @@ public class PullRefreshLayout extends ViewGroup {
     }
 
     @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+
+    }
+
+    @Override
     protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
 
     }
