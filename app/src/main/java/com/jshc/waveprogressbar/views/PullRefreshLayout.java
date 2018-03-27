@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.jshc.waveprogressbar.R;
@@ -91,58 +92,40 @@ public class PullRefreshLayout extends ViewGroup {
                 mEffictiveFooterHeight = child.getHeight();
             } else {
                 child.layout(0, mLayoutContentHeight, child.getMeasuredWidth(), mLayoutContentHeight + child.getMeasuredHeight());
-                if (i < getChildCount()) {
-                    if (child instanceof ScrollView) {
-                        mLayoutContentHeight += getMeasuredHeight();
-                        continue;
-                    }
-                    mLayoutContentHeight += child.getMeasuredHeight();
-                }
+                mLayoutContentHeight += child.getMeasuredHeight();
             }
         }
 
     }
 
-    float downX, downY;
+    private int mLastMoveY;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        for (int i = 0; i < getChildCount(); i++) {
-            View childView = getChildAt(i);
-
-        }
+        int y = (int) event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                downX = event.getX();
-                downY = event.getY();
-                Log.e("距离downY==", downY + "");
-                headerView.layout(0, 0, 0, 0);
+                mLastMoveY = y;
                 break;
             case MotionEvent.ACTION_MOVE:
-                float moveX = event.getX();
-                float moveY = event.getY();
-                float goX = moveX - downX;
-                goY = moveY - downY;
-                Log.e("距离downY2==", downY + "");
-//                Log.e("距离moveY==", moveY + "");
-//                Log.e("距离goY==", goY + "");
-//                headerView.layout(0, 0, headerView.getMeasuredWidth(), (int) goY / 2);
-                scrollBy(0, -(int) goY / 100);
+                int dy = mLastMoveY - y;
+                scrollBy(0, dy / 2);
                 break;
             case MotionEvent.ACTION_UP:
-                downX = 0;
-                downY = 0;
-                if (goY > headerView.getMeasuredHeight()) {
-                    headerView.layout(0, 0, headerView.getMeasuredWidth(), headerView.getMeasuredHeight());
-                    new android.os.Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            headerView.layout(0, 0, 0, 0);
-                        }
-                    }, 1500);
-                }
+                int dyu_up = mLastMoveY - y;
+                scrollBy(0, -dyu_up / 2);
+                // dy < 0代表是针对下拉刷新的操作
+//                if (dyu_up < 0) {
+//                    if (Math.abs(getScrollY()) <= headerView.getMeasuredHeight() / 2) {
+//                        scrollBy(0, dyu_up);
+//                        if (Math.abs(getScrollY()) >= headerView.getMeasuredHeight() * 2) {
+//                            header_textView.setText("松开刷新");
+//                        }
+//                    }
+//                }
                 break;
         }
+        mLastMoveY = y;
         return true;
     }
 
