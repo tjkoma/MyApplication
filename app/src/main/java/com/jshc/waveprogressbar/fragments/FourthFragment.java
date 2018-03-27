@@ -15,6 +15,7 @@ import com.jshc.waveprogressbar.R;
 import com.jshc.waveprogressbar.activitys.CardsActivity;
 import com.jshc.waveprogressbar.activitys.CommunicationActivity;
 import com.jshc.waveprogressbar.activitys.MyMapActivity;
+import com.jshc.waveprogressbar.activitys.PullreFreshActivity;
 import com.jshc.waveprogressbar.activitys.RecordActivity;
 import com.jshc.waveprogressbar.adapters.MineAdapter;
 
@@ -62,6 +63,8 @@ public class FourthFragment extends Fragment implements MineAdapter.OnMineItemCl
                 mineList.add("数据");
             } else if (i == 7) {
                 mineList.add("卡片");
+            } else if (i == 8) {
+                mineList.add("自定义上下拉刷新");
             } else {
                 mineList.add(i + 1 + "");
             }
@@ -102,6 +105,10 @@ public class FourthFragment extends Fragment implements MineAdapter.OnMineItemCl
             case 7:
                 Intent cardIntent = new Intent(getActivity(), CardsActivity.class);
                 startActivity(cardIntent);
+                break;
+            case 8:
+                Intent pullIntent = new Intent(getActivity(), PullreFreshActivity.class);
+                startActivity(pullIntent);
                 break;
         }
     }

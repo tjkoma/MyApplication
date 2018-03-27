@@ -45,7 +45,8 @@
         <service android:name="com.amap.api.location.APSService" />
 
         <activity android:name=".activitys.RecordActivity" />
-        <activity android:name=".activitys.CardsActivity"></activity>
+        <activity android:name=".activitys.CardsActivity" />
+        <activity android:name=".activitys.PullreFreshActivity"></activity>
     </application>
 
 </manifest>
