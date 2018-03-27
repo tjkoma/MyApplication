@@ -3,14 +3,19 @@ package com.jshc.waveprogressbar.views;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.jshc.waveprogressbar.R;
+
+import java.util.logging.Handler;
 
 /**
  * 上下拉刷新
@@ -19,10 +24,11 @@ import com.jshc.waveprogressbar.R;
 
 public class PullRefreshLayout extends ViewGroup {
     private ProgressBar header_prrgressBar;
-    private int mContentHeight;
+    private TextView header_textView;
+    private int mLayoutContentHeight, mEffectiveHeaderHeight, mEffictiveFooterHeight;
     private int lastChildIndex;
     private View headerView, footView;
-    private float goY;
+    private float goY = 0;
 
     public PullRefreshLayout(Context context) {
         super(context);
@@ -56,6 +62,7 @@ public class PullRefreshLayout extends ViewGroup {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         addView(headerView, params);
         header_prrgressBar = headerView.findViewById(R.id.header_prrgressBar);
+        header_textView = headerView.findViewById(R.id.header_textView);
     }
 
     private void addFootView() {
@@ -72,22 +79,34 @@ public class PullRefreshLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
-        mContentHeight = 0;
+        mLayoutContentHeight = 0;
+        Log.e("child", getChildCount() + "");
         for (int a = 0; a < getChildCount(); a++) {
-            View childView = getChildAt(a);
-            if (childView == headerView) {
-                childView.layout(0, 0 - childView.getMeasuredHeight(), childView.getMeasuredWidth(), 0);
-            } else if (childView == footView) {
-
+            View child = getChildAt(a);
+            if (child == headerView) {
+                child.layout(0, 0 - child.getMeasuredHeight(), child.getMeasuredWidth(), 0);
+                mEffectiveHeaderHeight = child.getHeight();
+            } else if (child == footView) {
+                child.layout(0, mLayoutContentHeight, child.getMeasuredWidth(), mLayoutContentHeight + child.getMeasuredHeight());
+                mEffictiveFooterHeight = child.getHeight();
             } else {
-                childView.layout(0, mContentHeight, childView.getMeasuredWidth(), childView.getMeasuredHeight());
+                child.layout(0, mLayoutContentHeight, child.getMeasuredWidth(), mLayoutContentHeight + child.getMeasuredHeight());
+                if (i < getChildCount()) {
+                    if (child instanceof ScrollView) {
+                        mLayoutContentHeight += getMeasuredHeight();
+                        continue;
+                    }
+                    mLayoutContentHeight += child.getMeasuredHeight();
+                }
             }
         }
+
     }
+
+    float downX, downY;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float downX = 0, downY = 0;
         for (int i = 0; i < getChildCount(); i++) {
             View childView = getChildAt(i);
 
@@ -96,45 +115,35 @@ public class PullRefreshLayout extends ViewGroup {
             case MotionEvent.ACTION_DOWN:
                 downX = event.getX();
                 downY = event.getY();
+                Log.e("距离downY==", downY + "");
+                headerView.layout(0, 0, 0, 0);
                 break;
             case MotionEvent.ACTION_MOVE:
                 float moveX = event.getX();
                 float moveY = event.getY();
                 float goX = moveX - downX;
-                goY = Math.abs(moveY - downY);
-                headerView.layout(0, 0, headerView.getMeasuredWidth(), (int) goY / 4);
+                goY = moveY - downY;
+                Log.e("距离downY2==", downY + "");
+//                Log.e("距离moveY==", moveY + "");
+//                Log.e("距离goY==", goY + "");
+//                headerView.layout(0, 0, headerView.getMeasuredWidth(), (int) goY / 2);
+                scrollBy(0, -(int) goY / 100);
                 break;
             case MotionEvent.ACTION_UP:
-                headerView.layout(0, 0, headerView.getMeasuredWidth(), headerView.getMeasuredHeight());
+                downX = 0;
+                downY = 0;
+                if (goY > headerView.getMeasuredHeight()) {
+                    headerView.layout(0, 0, headerView.getMeasuredWidth(), headerView.getMeasuredHeight());
+                    new android.os.Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            headerView.layout(0, 0, 0, 0);
+                        }
+                    }, 1500);
+                }
                 break;
         }
         return true;
     }
 
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent event) {
-//        float downX = 0, downY = 0;
-//        for (int i = 0; i < getChildCount(); i++) {
-//            View childView = getChildAt(i);
-//
-//        }
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                downX = event.getX();
-//                downY = event.getY();
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                float moveX = event.getX();
-//                float moveY = event.getY();
-//                float goX = moveX - downX;
-//                goY = Math.abs(moveY - downY);
-//                headerView.layout(0, 0, headerView.getMeasuredWidth(), (int) goY);
-//                break;
-//            case MotionEvent.ACTION_UP:
-//
-//                break;
-//        }
-//        return true;
-//
-//    }
 }
